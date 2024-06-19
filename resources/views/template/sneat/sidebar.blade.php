@@ -92,81 +92,40 @@
             </li>
         @endif
 
-        {{-- @if (in_array('station.index', $permissions) ||
-                in_array('material_category.index', $permissions) ||
-                in_array('measurement_unit.index', $permissions) ||
-                in_array('option', $permissions) ||
-                in_array('parameter', $permissions) ||
-                in_array('material', $permissions) ||
-                in_array('report_type', $permissions))
+        @if (
+                in_array('unit.index', $permissions) ||
+                in_array('raw_material_category.index', $permissions) ||
+                in_array('raw_material.index', $permissions)
+            )
             <li
                 class="menu-item
-                @yield('station-active')
-                @yield('material_category-active')
-                @yield('measurement_unit-active')
-                @yield('option-active')
-                @yield('parameter-active')
-                @yield('material-active')
-                @yield('report_type-active')
+                @yield('unit-active')
             ">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-data"></i>
                     <div data-i18n="Analytics">{{ ucwords(str_replace('_', ' ', 'master')) }}</div>
                 </a>
                 <ul class="menu-sub">
-                    @if (in_array('station.index', $permissions))
-                        <li class="menu-item @yield('station-active')">
-                            <a href="{{ route('station.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'station')) }}
+                    @if (in_array('unit.index', $permissions))
+                        <li class="menu-item @yield('unit-active')">
+                            <a href="{{ route('unit.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'unit')) }}
                                 </div>
                             </a>
                         </li>
                     @endif
-                    @if (in_array('material_category.index', $permissions))
-                        <li class="menu-item @yield('material_category-active')">
-                            <a href="{{ route('material_category.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">
-                                    {{ ucwords(str_replace('_', ' ', 'material_category')) }}
+                    @if (in_array('raw_material_category.index', $permissions))
+                        <li class="menu-item @yield('raw_material_category-active')">
+                            <a href="{{ route('raw_material_category.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'raw_material_category')) }}
                                 </div>
                             </a>
                         </li>
                     @endif
-                    @if (in_array('measurement_unit.index', $permissions))
-                        <li class="menu-item @yield('measurement_unit-active')">
-                            <a href="{{ route('measurement_unit.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'measurement_unit')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (in_array('option.index', $permissions))
-                        <li class="menu-item @yield('option-active')">
-                            <a href="{{ route('option.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'option')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (in_array('parameter.index', $permissions))
-                        <li class="menu-item @yield('parameter-active')">
-                            <a href="{{ route('parameter.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'parameter')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (in_array('material.index', $permissions))
-                        <li class="menu-item @yield('material-active')">
-                            <a href="{{ route('material.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'material')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (in_array('report_type.index', $permissions))
-                        <li class="menu-item @yield('report_type-active')">
-                            <a href="{{ route('report_type.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'report_type')) }}
+                    @if (in_array('raw_material.index', $permissions))
+                        <li class="menu-item @yield('raw_material-active')">
+                            <a href="{{ route('raw_material.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'raw_material')) }}
                                 </div>
                             </a>
                         </li>
@@ -175,7 +134,7 @@
             </li>
         @endif
 
-        @if (in_array('company.index', $permissions) ||
+        {{-- @if (in_array('company.index', $permissions) ||
             in_array('customer.index', $permissions))
             <li class="menu-item
                 @yield('company-active')

@@ -3,11 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\RawMaterialCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +36,6 @@ Route::resource('/department', DepartmentController::class)->middleware(['auth',
 Route::resource('/role', RoleController::class)->middleware(['auth', 'check.permission']);
 Route::resource('/user', UserController::class)->middleware(['auth', 'check.permission']);
 Route::get('/activity_log', ActivityLogController::class)->name('activity_log')->middleware(['auth', 'check.permission']);
+Route::resource('/unit', UnitController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/raw_material_category', RawMaterialCategoryController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/raw_material', RawMaterialController::class)->middleware(['auth', 'check.permission']);

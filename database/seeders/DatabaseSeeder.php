@@ -4,12 +4,14 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Role;
+use App\Models\Unit;
 use App\Models\User;
 use App\Models\Setup;
 use App\Models\Feature;
 use App\Models\Department;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use App\Models\RawMaterialCategory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -87,6 +89,24 @@ class DatabaseSeeder extends Seeder
             ['name' => ucfirst(str_replace('_', ' ', 'update_user')), 'route' => 'user.update'],
             ['name' => ucfirst(str_replace('_', ' ', 'delete_user')), 'route' => 'user.destroy'],
             ['name' => ucfirst(str_replace('_', ' ', 'activity_log')), 'route' => 'activity_log'],
+            ['name' => ucfirst(str_replace('_', ' ', 'list_of_unit')), 'route' => 'unit.index'],
+            ['name' => ucfirst(str_replace('_', ' ', 'create_unit')), 'route' => 'unit.create'],
+            ['name' => ucfirst(str_replace('_', ' ', 'save_unit')), 'route' => 'unit.store'],
+            ['name' => ucfirst(str_replace('_', ' ', 'edit_unit')), 'route' => 'unit.edit'],
+            ['name' => ucfirst(str_replace('_', ' ', 'update_unit')), 'route' => 'unit.update'],
+            ['name' => ucfirst(str_replace('_', ' ', 'delete_unit')), 'route' => 'unit.destroy'],
+            ['name' => ucfirst(str_replace('_', ' ', 'list_of_raw_material_category')), 'route' => 'raw_material_category.index'],
+            ['name' => ucfirst(str_replace('_', ' ', 'create_raw_material_category')), 'route' => 'raw_material_category.create'],
+            ['name' => ucfirst(str_replace('_', ' ', 'save_raw_material_category')), 'route' => 'raw_material_category.store'],
+            ['name' => ucfirst(str_replace('_', ' ', 'edit_raw_material_category')), 'route' => 'raw_material_category.edit'],
+            ['name' => ucfirst(str_replace('_', ' ', 'update_raw_material_category')), 'route' => 'raw_material_category.update'],
+            ['name' => ucfirst(str_replace('_', ' ', 'delete_raw_material_category')), 'route' => 'raw_material_category.destroy'],
+            ['name' => ucfirst(str_replace('_', ' ', 'list_of_raw_material')), 'route' => 'raw_material.index'],
+            ['name' => ucfirst(str_replace('_', ' ', 'create_raw_material')), 'route' => 'raw_material.create'],
+            ['name' => ucfirst(str_replace('_', ' ', 'save_raw_material')), 'route' => 'raw_material.store'],
+            ['name' => ucfirst(str_replace('_', ' ', 'edit_raw_material')), 'route' => 'raw_material.edit'],
+            ['name' => ucfirst(str_replace('_', ' ', 'update_raw_material')), 'route' => 'raw_material.update'],
+            ['name' => ucfirst(str_replace('_', ' ', 'delete_raw_material')), 'route' => 'raw_material.destroy'],
         ];
         Feature::insert($features);
 
@@ -96,5 +116,24 @@ class DatabaseSeeder extends Seeder
                 "role_id" => 1,
             ]);
         }
+
+        $units = [
+            ['name' => ucfirst(str_replace('_', ' ', 'ton')), 'symbol' => 'ton'],
+            ['name' => ucfirst(str_replace('_', ' ', 'kuintal')), 'symbol' => 'ku'],
+            ['name' => ucfirst(str_replace('_', ' ', 'kilogram')), 'symbol' => 'kg'],
+            ['name' => ucfirst(str_replace('_', ' ', 'ons')), 'symbol' => 'ons'],
+            ['name' => ucfirst(str_replace('_', ' ', 'gram')), 'symbol' => 'gr'],
+            ['name' => ucfirst(str_replace('_', ' ', 'miligram')), 'symbol' => 'mg'],
+        ];
+        Unit::insert($units);
+
+        $raw_material_categories = [
+            ['name' => ucfirst(str_replace('_', ' ', 'seasoning'))],
+            ['name' => ucfirst(str_replace('_', ' ', 'flour'))],
+            ['name' => ucfirst(str_replace('_', ' ', 'yeast'))],
+            ['name' => ucfirst(str_replace('_', ' ', 'additive'))],
+            ['name' => ucfirst(str_replace('_', ' ', 'packaging'))],
+        ];
+        RawMaterialCategory::insert($raw_material_categories);
     }
 }
