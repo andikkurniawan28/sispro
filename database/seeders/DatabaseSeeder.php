@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $setup = [
             'app_name' => ucwords(str_replace('_', ' ', 'sispro')),
             'company_name' => ucwords(str_replace('_', ' ', 'CV. Kendali Sinergi Aktif')),
-            'company_logo' => 'https://img.freepik.com/premium-vector/link-data-logo-design-concept_393879-3105.jpg?w=740',
+            'company_logo' => 'https://img.freepik.com/free-vector/colorful-bird-illustration-gradient_343694-1741.jpg?w=740&t=st=1718777239~exp=1718777839~hmac=0fb64615a1d74bf2aa6359c4fa472ff75d881de15c103bdecd09f495a98a7e6c',
         ];
         Setup::insert($setup);
 

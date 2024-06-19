@@ -16,10 +16,8 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained();
             $table->string('name');
             $table->string('username')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(0);
-            // $table->rememberToken();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
