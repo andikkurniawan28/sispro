@@ -74,6 +74,19 @@ class DatabaseSeeder extends Seeder
             ['name' => ucfirst(str_replace('_', ' ', 'edit_department')), 'route' => 'department.edit'],
             ['name' => ucfirst(str_replace('_', ' ', 'update_department')), 'route' => 'department.update'],
             ['name' => ucfirst(str_replace('_', ' ', 'delete_department')), 'route' => 'department.destroy'],
+            ['name' => ucfirst(str_replace('_', ' ', 'list_of_role')), 'route' => 'role.index'],
+            ['name' => ucfirst(str_replace('_', ' ', 'create_role')), 'route' => 'role.create'],
+            ['name' => ucfirst(str_replace('_', ' ', 'save_role')), 'route' => 'role.store'],
+            ['name' => ucfirst(str_replace('_', ' ', 'edit_role')), 'route' => 'role.edit'],
+            ['name' => ucfirst(str_replace('_', ' ', 'update_role')), 'route' => 'role.update'],
+            ['name' => ucfirst(str_replace('_', ' ', 'delete_role')), 'route' => 'role.destroy'],
+            ['name' => ucfirst(str_replace('_', ' ', 'list_of_user')), 'route' => 'user.index'],
+            ['name' => ucfirst(str_replace('_', ' ', 'create_user')), 'route' => 'user.create'],
+            ['name' => ucfirst(str_replace('_', ' ', 'save_user')), 'route' => 'user.store'],
+            ['name' => ucfirst(str_replace('_', ' ', 'edit_user')), 'route' => 'user.edit'],
+            ['name' => ucfirst(str_replace('_', ' ', 'update_user')), 'route' => 'user.update'],
+            ['name' => ucfirst(str_replace('_', ' ', 'delete_user')), 'route' => 'user.destroy'],
+            ['name' => ucfirst(str_replace('_', ' ', 'activity_log')), 'route' => 'activity_log'],
         ];
         Feature::insert($features);
 

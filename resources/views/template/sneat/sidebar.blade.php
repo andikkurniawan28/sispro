@@ -64,7 +64,7 @@
                             </a>
                         </li>
                     @endif
-                    {{-- @if (in_array('role.index', $permissions))
+                    @if (in_array('role.index', $permissions))
                         <li class="menu-item @yield('role-active')">
                             <a href="{{ route('role.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'role')) }}
@@ -87,7 +87,7 @@
                                 </div>
                             </a>
                         </li>
-                    @endif --}}
+                    @endif
                 </ul>
             </li>
         @endif

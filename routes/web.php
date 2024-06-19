@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +30,6 @@ Route::post('/change_datetime', [AuthController::class, 'changeDatetime'])->name
 Route::get('/setup', [SetupController::class, 'index'])->name('setup.index')->middleware(['auth', 'check.permission']);
 Route::put('/setup/{id}', [SetupController::class, 'update'])->name('setup.update')->middleware(['auth', 'check.permission']);
 Route::resource('/department', DepartmentController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/role', RoleController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/user', UserController::class)->middleware(['auth', 'check.permission']);
+Route::get('/activity_log', ActivityLogController::class)->name('activity_log')->middleware(['auth', 'check.permission']);
