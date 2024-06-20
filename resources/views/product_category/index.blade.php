@@ -1,10 +1,10 @@
 @extends('template.sneat.master')
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'raw_material')) }}
+    {{ ucwords(str_replace('_', ' ', 'product_category')) }}
 @endsection
 
-@section('raw_material-active')
+@section('product_category-active')
     {{ 'active' }}
 @endsection
 
@@ -15,59 +15,39 @@
             <div class="card-body">
                 <h4>List of <strong>@yield('title')</strong></h4>
                 <div class="btn-group" role="group" aria-label="manage">
-                    <a href="{{ route('raw_material.create') }}" class="btn btn-sm btn-primary">Create</a>
+                    <a href="{{ route('product_category.create') }}" class="btn btn-sm btn-primary">Create</a>
                 </div>
                 <div class="table-responsive">
                     <span class="half-line-break"></span>
-                    <table class="table table-bordered table-hovered" id="raw_material_table" width="100%">
+                    <table class="table table-hover table-bordered" id="example" width="100%">
                         <thead>
                             <tr>
-                                <th>{{ ucwords(str_replace('_', ' ', 'code')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'name')) }}</th>
-                                <th>{{ ucwords(str_replace('_', ' ', 'raw_material_category')) }}</th>
-                                <th>{{ ucwords(str_replace('_', ' ', 'unit')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'manage')) }}</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach ($product_categories as $product_category)
+                                <tr>
+                                    <td>{{ $product_category->name }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="manage">
+                                            <a href="{{ route('product_category.edit', $product_category->id) }}"
+                                                class="btn btn-secondary btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                data-id="{{ $product_category->id }}"
+                                                data-name="{{ $product_category->name }}">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-
-@section('additional_script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#raw_material_table').DataTable({
-                layout: {
-                    bottomStart: {
-                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
-                    },
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('raw_material.index') }}",
-                order: [
-                    [0, 'desc']
-                ],
-                columns: [
-                    { data: 'code', name: 'code' },
-                    { data: 'name', name: 'name' },
-                    { data: 'raw_material_category_id', name: 'raw_material_category.name' },
-                    { data: 'unit_id', name: 'unit.name' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
-                ],
-                initComplete: function(settings, json) {
-                    var api = this.api();
-                    var headers = api.columns().header();
-                    // Optional: Custom header processing if needed
-                }
-            });
-        });
-
-        // Delete button handling
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Inisialisasi DataTable
             const table = $('#example').DataTable();
@@ -79,8 +59,8 @@
                     event.preventDefault();
                     console.log('Delete button clicked');
                     const button = event.target;
-                    const raw_material_id = button.getAttribute('data-id');
-                    const raw_material_name = button.getAttribute('data-name');
+                    const product_category_id = button.getAttribute('data-id');
+                    const product_category_name = button.getAttribute('data-name');
                     Swal.fire({
                         title: 'Are you sure?',
                         text: 'You won\'t be able to revert this!',
@@ -94,10 +74,9 @@
                             const form = document.createElement('form');
                             form.setAttribute('method', 'POST');
                             form.setAttribute('action',
-                                `{{ route('raw_material.destroy', ':id') }}`.replace(
-                                    ':id', raw_material_id));
-                            const csrfToken = document.getElementsByName("_token")[0]
-                                .value;
+                                `{{ route('product_category.destroy', ':id') }}`.replace(
+                                    ':id', product_category_id));
+                            const csrfToken = document.getElementsByName("_token")[0].value;
 
                             const hiddenMethod = document.createElement('input');
                             hiddenMethod.setAttribute('type', 'hidden');
@@ -107,7 +86,7 @@
                             const name = document.createElement('input');
                             name.setAttribute('type', 'hidden');
                             name.setAttribute('name', 'name');
-                            name.setAttribute('value', raw_material_name);
+                            name.setAttribute('value', product_category_name);
 
                             const csrfTokenInput = document.createElement('input');
                             csrfTokenInput.setAttribute('type', 'hidden');

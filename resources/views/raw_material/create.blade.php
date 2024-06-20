@@ -28,6 +28,24 @@
                             @csrf @method("POST")
 
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="name">
+                                    {{ ucwords(str_replace('_', ' ', 'name')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old("name") }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="code">
+                                    {{ ucwords(str_replace('_', ' ', 'code')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="code" name="code" value="{{ old("code") }}" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="raw_material_category_id">
                                     {{ ucwords(str_replace('_', ' ', 'raw_material_category')) }}
                                 </label>
@@ -55,22 +73,6 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="name">
-                                    {{ ucwords(str_replace('_', ' ', 'name')) }}
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ old("name") }}" required>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="code">
-                                    {{ ucwords(str_replace('_', ' ', 'code')) }}
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="code" name="code" value="{{ old("code") }}" required autofocus>
-                                </div>
-                            </div>
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Send</button>

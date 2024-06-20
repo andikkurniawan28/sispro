@@ -28,6 +28,24 @@
                             @csrf @method("PUT")
 
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="name">
+                                    {{ ucwords(str_replace('_', ' ', 'name')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ $raw_material->name }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="code">
+                                    {{ ucwords(str_replace('_', ' ', 'code')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="code" name="code" value="{{ $raw_material->code }}" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="raw_material_category_id">
                                     {{ ucwords(str_replace('_', ' ', 'raw_material_category')) }}
                                 </label>
@@ -54,28 +72,11 @@
                                         @foreach ($units as $unit)
                                             <option value="{{ $unit->id }}"
                                                 {{ $unit->id == $raw_material->unit_id ? 'selected' : '' }}>
-                                                @php echo ucwords(str_replace('_', ' ', $unit->name)); @endphp
+                                                {{ ucwords(str_replace("_", " ", $unit->name)) }}
+                                                (@php echo str_replace('_', ' ', $unit->name); @endphp)
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="name">
-                                    {{ ucwords(str_replace('_', ' ', 'name')) }}
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $raw_material->name }}" required>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="code">
-                                    {{ ucwords(str_replace('_', ' ', 'code')) }}
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="code" name="code" value="{{ $raw_material->code }}" required autofocus>
                                 </div>
                             </div>
 

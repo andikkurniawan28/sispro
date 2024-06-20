@@ -34,6 +34,7 @@ class UnitController extends Controller
     {
         $validated = $request->validate([
             "name" => "required|unique:units",
+            "symbol" => "required|unique:units",
         ]);
         Unit::create($validated);
         return redirect()->back()->with("success", "Unit has been created");
@@ -65,6 +66,7 @@ class UnitController extends Controller
         $unit = Unit::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required|unique:units,name,' . $unit->id,
+            'symbol' => 'required|unique:units,symbol,' . $unit->id,
         ]);
         $unit->update($validated);
         return redirect()->back()->with("success", "Unit has been updated");

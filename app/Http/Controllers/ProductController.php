@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use App\Models\Setup;
-use App\Models\RawMaterial;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Models\RawMaterialCategory;
+use App\Models\ProductStatus;
+use App\Models\ProductCategory;
 use Yajra\DataTables\DataTables;
 
-class RawMaterialController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +19,15 @@ class RawMaterialController extends Controller
     {
         $setup = Setup::init();
         if ($request->ajax()) {
-            $data = RawMaterial::with('raw_material_category', 'unit')
+            $data = Product::with('product_category', 'unit', 'product_status')
                 ->latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->editColumn('raw_material_category_id', function ($row) {
-                    return $row->raw_material_category_id ? $row->raw_material_category->name : 'N/A';
+                ->editColumn('product_category_id', function ($row) {
+                    return $row->product_category_id ? $row->product_category->name : 'N/A';
+                })
+                ->editColumn('product_status_id', function ($row) {
+                    return $row->product_status_id ? $row->product_status->name : 'N/A';
                 })
                 ->editColumn('unit_id', function ($row) {
                     return $row->unit_id ? $row->unit->name : 'N/A';
@@ -32,7 +36,7 @@ class RawMaterialController extends Controller
                     return $row->created_at->format('Y-m-d H:i:s');
                 })
                 ->addColumn('action', function ($row) {
-                    $editUrl = route('raw_material.edit', $row->id);
+                    $editUrl = route('product.edit', $row->id);
                     return '
                     <div class="btn-group" role="group" aria-label="Action Buttons">
                         <a href="' . $editUrl . '" class="btn btn-secondary btn-sm">Edit</a>
@@ -40,13 +44,13 @@ class RawMaterialController extends Controller
                     </div>
                 ';
                 })
-                ->rawColumns(['action', 'raw_material_category_id', 'unit_id'])
+                ->rawColumns(['action', 'product_category_id', 'unit_id', 'product_status_id'])
                 ->setRowAttr([
                     'data-searchable' => 'true'
                 ])
                 ->make(true);
         }
-        return view('raw_material.index', compact('setup'));
+        return view('product.index', compact('setup'));
     }
 
     /**
@@ -55,9 +59,10 @@ class RawMaterialController extends Controller
     public function create()
     {
         $setup = Setup::init();
-        $raw_material_categories = RawMaterialCategory::all();
+        $product_categories = ProductCategory::all();
+        $product_statuses = ProductStatus::all();
         $units = Unit::all();
-        return view('raw_material.create', compact('setup', 'raw_material_categories', 'units'));
+        return view('product.create', compact('setup', 'product_categories', 'units', 'product_statuses'));
     }
 
     /**
@@ -66,19 +71,22 @@ class RawMaterialController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "raw_material_category_id" => "required",
+            "product_category_id" => "required",
             "unit_id" => "required",
-            "name" => "required|unique:raw_materials",
-            "code" => "required|unique:raw_materials",
+            "product_status_id" => "required",
+            "name" => "required|unique:products",
+            "code" => "required|unique:products",
+            "barcode" => "nullable|unique:products",
+            "expiration_time" => "required",
         ]);
-        RawMaterial::create($validated);
-        return redirect()->back()->with("success", "Raw Material has been created");
+        Product::create($validated);
+        return redirect()->back()->with("success", "Product has been created");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(RawMaterial $raw_material)
+    public function show(Product $product)
     {
         //
     }
@@ -89,10 +97,11 @@ class RawMaterialController extends Controller
     public function edit($id)
     {
         $setup = Setup::init();
-        $raw_material = RawMaterial::findOrFail($id);
-        $raw_material_categories = RawMaterialCategory::all();
+        $product = Product::findOrFail($id);
+        $product_categories = ProductCategory::all();
+        $product_statuses = ProductStatus::all();
         $units = Unit::all();
-        return view('raw_material.edit', compact('setup', 'raw_material', 'raw_material_categories', 'units'));
+        return view('product.edit', compact('setup', 'product', 'product_categories', 'units', 'product_statuses'));
     }
 
     /**
@@ -100,20 +109,23 @@ class RawMaterialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $raw_material = RawMaterial::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         // Validasi input
         $validated = $request->validate([
-            "raw_material_category_id" => "required",
+            "product_category_id" => "required",
             "unit_id" => "required",
-            'name' => 'required|unique:raw_materials,name,' . $raw_material->id,
-            'code' => 'required|unique:raw_materials,code,' . $raw_material->id,
+            "product_status_id" => "required",
+            'name' => 'required|unique:products,name,' . $product->id,
+            'code' => 'required|unique:products,code,' . $product->id,
+            "barcode" => 'nullable|unique:products,name,' . $product->id,
+            "expiration_time" => "required",
         ]);
 
         // Update data pengguna
-        $raw_material->update($validated);
+        $product->update($validated);
 
-        return redirect()->back()->with("success", "Raw Material has been updated");
+        return redirect()->back()->with("success", "Product has been updated");
     }
 
 
@@ -122,7 +134,7 @@ class RawMaterialController extends Controller
      */
     public function destroy($id)
     {
-        RawMaterial::findOrFail($id)->delete();
-        return redirect()->back()->with("success", "Raw Material has been deleted");
+        Product::findOrFail($id)->delete();
+        return redirect()->back()->with("success", "Product has been deleted");
     }
 }
