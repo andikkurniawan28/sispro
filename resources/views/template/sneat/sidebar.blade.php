@@ -170,6 +170,29 @@
             </li>
         @endif
 
+        @if (in_array('demand.index', $permissions)
+
+        )
+            <li class="menu-item
+                @yield('demand-active')
+            ">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-transfer"></i>
+                    <div data-i18n="Analytics">{{ ucwords(str_replace('_', ' ', 'transaction')) }}</div>
+                </a>
+                <ul class="menu-sub">
+                    @if (in_array('demand.index', $permissions))
+                        <li class="menu-item @yield('demand-active')">
+                            <a href="{{ route('demand.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'demand')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+        @endif
+
         {{-- @if (in_array('company.index', $permissions) ||
             in_array('customer.index', $permissions))
             <li class="menu-item
@@ -193,37 +216,6 @@
                         <li class="menu-item @yield('customer-active')">
                             <a href="{{ route('customer.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'customer')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
-        @endif
-
-        @if (in_array('analysis.index', $permissions) ||
-            in_array('monitoring.index', $permissions))
-            <li class="menu-item
-                @yield('analysis-active')
-                @yield('monitoring-active')
-            ">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-transfer"></i>
-                    <div data-i18n="Analytics">{{ ucwords(str_replace('_', ' ', 'transaction')) }}</div>
-                </a>
-                <ul class="menu-sub">
-                    @if (in_array('analysis.index', $permissions))
-                        <li class="menu-item @yield('analysis-active')">
-                            <a href="{{ route('analysis.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'analysis')) }}
-                                </div>
-                            </a>
-                        </li>
-                    @endif
-                    @if (in_array('monitoring.index', $permissions))
-                        <li class="menu-item @yield('monitoring-active')">
-                            <a href="{{ route('monitoring.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'monitoring')) }}
                                 </div>
                             </a>
                         </li>

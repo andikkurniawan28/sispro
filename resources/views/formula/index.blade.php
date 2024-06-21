@@ -23,7 +23,7 @@
                             <tr>
                                 <th>{{ ucwords(str_replace('_', ' ', 'product_code')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'product_name')) }}</th>
-                                <th>{{ ucwords(str_replace('_', ' ', 'formula_list')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'formula')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'manage')) }}</th>
                             </tr>
                         </thead>

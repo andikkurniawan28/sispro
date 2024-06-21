@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\User;
 use App\Models\Setup;
 use App\Models\Feature;
+use App\Models\Product;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\RawMaterial;
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $setup = [
-            'app_name' => ucwords(str_replace('_', ' ', 'sispro')),
+            'app_name' => ucwords(str_replace('_', ' ', 'sisPRO')),
             'company_name' => ucwords(str_replace('_', ' ', 'CV. Kendali Sinergi Aktif')),
             'company_logo' => 'https://img.freepik.com/free-vector/colorful-bird-illustration-gradient_343694-1741.jpg?w=740&t=st=1718777239~exp=1718777839~hmac=0fb64615a1d74bf2aa6359c4fa472ff75d881de15c103bdecd09f495a98a7e6c',
         ];
@@ -131,6 +132,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'list_of_formula')), 'route' => 'formula.index'],
             ['name' => ucwords(str_replace('_', ' ', 'adjust_formula')), 'route' => 'formula.adjust'],
             ['name' => ucwords(str_replace('_', ' ', 'update_formula')), 'route' => 'formula.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_demand')), 'route' => 'demand.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_demand')), 'route' => 'demand.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_demand')), 'route' => 'demand.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_demand')), 'route' => 'demand.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_demand')), 'route' => 'demand.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_demand')), 'route' => 'demand.destroy'],
         ];
         Feature::insert($features);
 
@@ -148,6 +155,9 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'ons')), 'symbol' => 'ons'],
             ['name' => ucwords(str_replace('_', ' ', 'gram')), 'symbol' => 'gr'],
             ['name' => ucwords(str_replace('_', ' ', 'miligram')), 'symbol' => 'mg'],
+            ['name' => ucwords(str_replace('_', ' ', 'pack')), 'symbol' => 'pack'],
+            ['name' => ucwords(str_replace('_', ' ', 'box')), 'symbol' => 'box'],
+            ['name' => ucwords(str_replace('_', ' ', 'bottle')), 'symbol' => 'bottle'],
         ];
         Unit::insert($units);
 
@@ -184,9 +194,40 @@ class DatabaseSeeder extends Seeder
         ProductCategory::insert($product_categories);
 
         $product_statuses = [
+            ['name' => ucwords(str_replace('_', ' ', 'sale'))],
             ['name' => ucwords(str_replace('_', ' ', 'test'))],
-            ['name' => ucwords(str_replace('_', ' ', 'production'))],
         ];
         ProductStatus::insert($product_statuses);
+
+        $products = [
+            [
+                'name' => ucwords(str_replace('_', ' ', 'weiwang_minipao_coklat')),
+                'product_category_id' => 2,
+                'product_status_id' => 1,
+                'unit_id' => 7,
+                'code' => 'strtoupper'(str_replace('_', ' ', 'mpc')),
+                'barcode' => 'strtoupper'(str_replace('_', ' ', 'mpc')),
+                'expiration_time' => 12,
+            ],
+            [
+                'name' => ucwords(str_replace('_', ' ', 'weiwang_minipao_ayam')),
+                'product_category_id' => 2,
+                'product_status_id' => 1,
+                'unit_id' => 7,
+                'code' => 'strtoupper'(str_replace('_', ' ', 'mpa')),
+                'barcode' => 'strtoupper'(str_replace('_', ' ', 'mpa')),
+                'expiration_time' => 12,
+            ],
+            [
+                'name' => ucwords(str_replace('_', ' ', 'weiwang_minipao_kacang_hijau')),
+                'product_category_id' => 2,
+                'product_status_id' => 1,
+                'unit_id' => 7,
+                'code' => 'strtoupper'(str_replace('_', ' ', 'mpkh')),
+                'barcode' => 'strtoupper'(str_replace('_', ' ', 'mpkh')),
+                'expiration_time' => 12,
+            ],
+        ];
+        Product::insert($products);
     }
 }

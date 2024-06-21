@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SetupController;
+use App\Http\Controllers\DemandController;
 use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
@@ -49,3 +50,4 @@ Route::resource('/product', ProductController::class)->middleware(['auth', 'chec
 Route::get('/formula', [FormulaController::class, 'index'])->name('formula.index')->middleware(['auth', 'check.permission']);
 Route::get('/formula/{product_id}', [FormulaController::class, 'adjust'])->name('formula.adjust')->middleware(['auth', 'check.permission']);
 Route::post('/formula/{product_id}', [FormulaController::class, 'update'])->name('formula.update')->middleware(['auth', 'check.permission']);
+Route::resource('/demand', DemandController::class)->middleware(['auth', 'check.permission']);
