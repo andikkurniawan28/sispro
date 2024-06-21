@@ -128,6 +128,9 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_product')), 'route' => 'product.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_product')), 'route' => 'product.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_product')), 'route' => 'product.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_formula')), 'route' => 'formula.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'adjust_formula')), 'route' => 'formula.adjust'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_formula')), 'route' => 'formula.update'],
         ];
         Feature::insert($features);
 

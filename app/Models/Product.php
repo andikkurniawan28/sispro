@@ -28,6 +28,11 @@ class Product extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function formula()
+    {
+        return $this->hasMany(Formula::class);
+    }
+
     protected static function booted()
     {
         static::created(function ($product) {

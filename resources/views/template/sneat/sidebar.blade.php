@@ -98,7 +98,8 @@
                 in_array('raw_material.index', $permissions) ||
                 in_array('product_category.index', $permissions) ||
                 in_array('product_status.index', $permissions) ||
-                in_array('product.index', $permissions)
+                in_array('product.index', $permissions) ||
+                in_array('formula.index', $permissions)
             )
             <li
                 class="menu-item
@@ -153,6 +154,14 @@
                         <li class="menu-item @yield('product-active')">
                             <a href="{{ route('product.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'product')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('formula.index', $permissions))
+                        <li class="menu-item @yield('formula-active')">
+                            <a href="{{ route('formula.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'formula')) }}
                                 </div>
                             </a>
                         </li>
