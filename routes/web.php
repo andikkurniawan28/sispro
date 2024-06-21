@@ -11,6 +11,7 @@ use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ProductStatusController;
@@ -51,3 +52,4 @@ Route::get('/formula', [FormulaController::class, 'index'])->name('formula.index
 Route::get('/formula/{product_id}', [FormulaController::class, 'adjust'])->name('formula.adjust')->middleware(['auth', 'check.permission']);
 Route::post('/formula/{product_id}', [FormulaController::class, 'update'])->name('formula.update')->middleware(['auth', 'check.permission']);
 Route::resource('/demand', DemandController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/production', ProductionController::class)->middleware(['auth', 'check.permission']);

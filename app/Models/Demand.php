@@ -19,6 +19,11 @@ class Demand extends Model
         return $this->hasMany(DemandItem::class);
     }
 
+    public function production()
+    {
+        return $this->hasMany(Production::class);
+    }
+
     protected static function booted()
     {
         static::created(function ($demand) {
@@ -43,18 +48,11 @@ class Demand extends Model
         });
 
         static::saving(function ($demand) {
-            // Check if the model is being updated
             if ($demand->exists) {
                 // Handle activity log creation for update
                 ActivityLog::create([
                     'user_id' => Auth::id(),
                     'description' => "Demand '{$demand->code}' was updated.",
-                ]);
-            } else {
-                // Handle activity log creation for creation
-                ActivityLog::create([
-                    'user_id' => Auth::id(),
-                    'description' => "Demand '{$demand->code}' was created.",
                 ]);
             }
         });

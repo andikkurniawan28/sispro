@@ -1,10 +1,10 @@
 @extends('template.sneat.master')
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'demand')) }}
+    {{ ucwords(str_replace('_', ' ', 'production')) }}
 @endsection
 
-@section('demand-active')
+@section('production-active')
     {{ 'active' }}
 @endsection
 
@@ -15,17 +15,19 @@
             <div class="card-body">
                 <h4>List of <strong>@yield('title')</strong></h4>
                 <div class="btn-group" role="group" aria-label="manage">
-                    <a href="{{ route('demand.create') }}" class="btn btn-sm btn-primary">Create</a>
+                    <a href="{{ route('production.create') }}" class="btn btn-sm btn-primary">Create</a>
                 </div>
                 <div class="table-responsive">
                     <span class="half-line-break"></span>
-                    <table class="table table-bordered table-hovered" id="demand_table" width="100%">
+                    <table class="table table-bordered table-hovered" id="production_table" width="100%">
                         <thead>
                             <tr>
                                 <th>{{ ucwords(str_replace('_', ' ', 'timestamp')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'code')) }}</th>
-                                <th>{{ ucwords(str_replace('_', ' ', 'due_date')) }}</th>
-                                <th>{{ ucwords(str_replace('_', ' ', 'product')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'batch')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'product_code')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'demand_code')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'qty')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'manage')) }}</th>
                             </tr>
                         </thead>
@@ -40,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var table = $('#demand_table').DataTable({
+            var table = $('#production_table').DataTable({
                 layout: {
                     bottomStart: {
                         buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
@@ -48,15 +50,17 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('demand.index') }}",
+                ajax: "{{ route('production.index') }}",
                 order: [
                     [0, 'desc']
                 ],
                 columns: [
                     { data: 'created_at', name: 'created_at' },
                     { data: 'code', name: 'code' },
-                    { data: 'due_date', name: 'due_date' },
-                    { data: 'demand_item_list', name: 'formula_list', orderable: false, searchable: false },
+                    { data: 'batch', name: 'batch' },
+                    { data: 'product_id', name: 'product.code' },
+                    { data: 'demand_id', name: 'demand.code' },
+                    { data: 'qty', name: 'qty' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 initComplete: function(settings, json) {
@@ -79,8 +83,8 @@
                     event.preventDefault();
                     console.log('Delete button clicked');
                     const button = event.target;
-                    const demand_id = button.getAttribute('data-id');
-                    const demand_name = button.getAttribute('data-name');
+                    const production_id = button.getAttribute('data-id');
+                    const production_name = button.getAttribute('data-name');
                     Swal.fire({
                         title: 'Are you sure?',
                         text: 'You won\'t be able to revert this!',
@@ -94,8 +98,8 @@
                             const form = document.createElement('form');
                             form.setAttribute('method', 'POST');
                             form.setAttribute('action',
-                                `{{ route('demand.destroy', ':id') }}`.replace(
-                                    ':id', demand_id));
+                                `{{ route('production.destroy', ':id') }}`.replace(
+                                    ':id', production_id));
                             const csrfToken = document.getElementsByName("_token")[0]
                                 .value;
 
@@ -107,7 +111,7 @@
                             const name = document.createElement('input');
                             name.setAttribute('type', 'hidden');
                             name.setAttribute('name', 'name');
-                            name.setAttribute('value', demand_name);
+                            name.setAttribute('value', production_name);
 
                             const csrfTokenInput = document.createElement('input');
                             csrfTokenInput.setAttribute('type', 'hidden');

@@ -8,6 +8,7 @@ use App\Models\Demand;
 use App\Models\Product;
 use App\Models\DemandItem;
 use Illuminate\Http\Request;
+use App\Models\ProductStatus;
 use App\Models\DemandCategory;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +67,8 @@ class DemandController extends Controller
     public function create()
     {
         $setup = Setup::init();
-        $products = Product::all();
+        $saleStatusId = ProductStatus::where('name', 'Sale')->value('id');
+        $products = Product::where('product_status_id', $saleStatusId)->get();
         $code = Demand::generateCode();
         return view('demand.create', compact('setup', 'products', 'code'));
     }
@@ -131,7 +133,8 @@ class DemandController extends Controller
     public function edit($id)
     {
         $setup = Setup::init();
-        $products = Product::all();
+        $saleStatusId = ProductStatus::where('name', 'Sale')->value('id');
+        $products = Product::where('product_status_id', $saleStatusId)->get();
         $demand = Demand::findOrFail($id);
         return view('demand.edit', compact('setup', 'products', 'demand'));
     }

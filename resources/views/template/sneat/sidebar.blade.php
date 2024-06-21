@@ -170,8 +170,8 @@
             </li>
         @endif
 
-        @if (in_array('demand.index', $permissions)
-
+        @if (in_array('demand.index', $permissions) ||
+            in_array('production.index', $permissions)
         )
             <li class="menu-item
                 @yield('demand-active')
@@ -185,6 +185,14 @@
                         <li class="menu-item @yield('demand-active')">
                             <a href="{{ route('demand.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'demand')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('production.index', $permissions))
+                        <li class="menu-item @yield('production-active')">
+                            <a href="{{ route('production.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'production')) }}
                                 </div>
                             </a>
                         </li>

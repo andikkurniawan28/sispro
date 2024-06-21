@@ -138,6 +138,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_demand')), 'route' => 'demand.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_demand')), 'route' => 'demand.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_demand')), 'route' => 'demand.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_production')), 'route' => 'production.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_production')), 'route' => 'production.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_production')), 'route' => 'production.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_production')), 'route' => 'production.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_production')), 'route' => 'production.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_production')), 'route' => 'production.destroy'],
         ];
         Feature::insert($features);
 
