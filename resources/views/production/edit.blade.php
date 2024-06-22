@@ -1,10 +1,10 @@
 @extends('template.sneat.master')
 
 @section('title')
-    {{ ucwords(str_replace('_', ' ', 'edit_raw_material')) }}
+    {{ ucwords(str_replace('_', ' ', 'edit_production')) }}
 @endsection
 
-@section('raw_material-active')
+@section('production-active')
     {{ 'active' }}
 @endsection
 
@@ -12,9 +12,9 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route("raw_material.index") }}">{{ ucwords(str_replace('_', ' ', 'raw_material')) }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">@yield("title")</li>
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route("production.index") }}">{{ ucwords(str_replace('_', ' ', 'production')) }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@yield("title")</li>
             </ol>
         </nav>
         <div class="row">
@@ -24,65 +24,86 @@
                         <h5 class="mb-0">@yield('title')</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route("raw_material.update", $raw_material->id) }}" method="POST">
-                            @csrf @method("PUT")
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="name">
-                                    {{ ucwords(str_replace('_', ' ', 'name')) }}
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $raw_material->name }}" required>
-                                </div>
-                            </div>
+                        <form action="{{ route("production.update", $production->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="code">
                                     {{ ucwords(str_replace('_', ' ', 'code')) }}
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="code" name="code" value="{{ $raw_material->code }}" required autofocus>
+                                    <input type="text" class="form-control" id="code" name="code" value="{{ $production->code }}" readonly>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="raw_material_category_id">
-                                    {{ ucwords(str_replace('_', ' ', 'raw_material_category')) }}
+                                <label class="col-sm-2 col-form-label" for="demand_id">
+                                    {{ ucwords(str_replace('_', ' ', 'demand')) }}
                                 </label>
                                 <div class="col-sm-10">
-                                    <select class="raw_material_category_id" id="raw_material_category_id" name="raw_material_category_id" required autofocus>
-                                        <option disabled selected>Select a raw material category :</option>
-                                        @foreach ($raw_material_categories as $raw_material_category)
-                                            <option value="{{ $raw_material_category->id }}"
-                                                {{ $raw_material_category->id == $raw_material->raw_material_category_id ? 'selected' : '' }}>
-                                                @php echo ucwords(str_replace('_', ' ', $raw_material_category->name)); @endphp
-                                            </option>
+                                    <select class="demand_id" id="demand_id" name="demand_id" required autofocus>
+                                        <option disabled>Select a demand :</option>
+                                        @foreach ($demands as $demand)
+                                            <option value="{{ $demand->id }}" {{ $production->demand_id == $demand->id ? 'selected' : '' }}>{{ $demand->code }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="unit_id">
-                                    {{ ucwords(str_replace('_', ' ', 'unit')) }}
+                                <label class="col-sm-2 col-form-label" for="product_id">
+                                    {{ ucwords(str_replace('_', ' ', 'product')) }}
                                 </label>
                                 <div class="col-sm-10">
-                                    <select class="unit_id" id="unit_id" name="unit_id" required autofocus>
-                                        <option disabled selected>Select a unit :</option>
-                                        @foreach ($units as $unit)
-                                            <option value="{{ $unit->id }}"
-                                                {{ $unit->id == $raw_material->unit_id ? 'selected' : '' }}>
-                                                {{ ucwords(str_replace("_", " ", $unit->name)) }}
-                                                (@php echo str_replace('_', ' ', $unit->name); @endphp)
-                                            </option>
+                                    <select class="product_id" id="product_id" name="product_id" required autofocus>
+                                        <option disabled>Select a raw product :</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}" {{ $production->product_id == $product->id ? 'selected' : '' }}>{{ $product->code }} | @php echo str_replace('_', ' ', $product->name); @endphp</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="batch">
+                                    {{ ucwords(str_replace('_', ' ', 'batch')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="batch" name="batch" value="{{ $production->batch }}" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="accepted">
+                                    {{ ucwords(str_replace('_', ' ', 'accepted')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="accepted" name="accepted" value="{{ $production->accepted }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="rejected">
+                                    {{ ucwords(str_replace('_', ' ', 'rejected')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="rejected" name="rejected" value="{{ $production->rejected }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="qty">
+                                    {{ ucwords(str_replace('_', ' ', 'qty')) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="qty" name="qty" value="{{ $production->qty }}" required>
                                 </div>
                             </div>
 
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Send</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>
                             </div>
                         </form>
@@ -96,11 +117,11 @@
 @section('additional_script')
 <script>
     $(document).ready(function() {
-        $('.raw_material_category_id').select2({
+        $('.product_id').select2({
             theme: 'bootstrap',
             width: '100%',
         });
-        $('.unit_id').select2({
+        $('.demand_id').select2({
             theme: 'bootstrap',
             width: '100%',
         });

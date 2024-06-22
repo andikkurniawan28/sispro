@@ -19,7 +19,7 @@ class Demand extends Model
         return $this->hasMany(DemandItem::class);
     }
 
-    public function production()
+    public function productions()
     {
         return $this->hasMany(Production::class);
     }

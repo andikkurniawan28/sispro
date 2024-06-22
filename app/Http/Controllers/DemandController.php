@@ -24,11 +24,11 @@ class DemandController extends Controller
         if ($request->ajax()) {
             $data = Demand::with('demand_items')
                 ->latest()->get();
-            return Datatables::of($data)
+                return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('demand_item_list', function ($row) {
                     $demand_items = $row->demand_items;
-                    $demand_itemList = '';
+                    $demand_itemList = '<ul>';
 
                     foreach ($demand_items as $demand_item) {
                         $product = $demand_item->product;
@@ -37,7 +37,22 @@ class DemandController extends Controller
                         }
                     }
 
+                    $demand_itemList .= '</ul>';
                     return $demand_itemList;
+                })
+                ->addColumn('production_list', function ($row) {
+                    $productions = $row->productions;
+                    $productionList = '<ul>';
+
+                    foreach ($productions as $production) {
+                        $product = $production->product;
+                        if ($product) {
+                            $productionList .= '<li>' . $production->code .'-'. $product->code . ' : ' . $production->qty . ' ' . $product->unit->symbol . '</li>';
+                        }
+                    }
+
+                    $productionList .= '</ul>';
+                    return $productionList;
                 })
                 ->editColumn('created_at', function ($row) {
                     return $row->created_at->format('Y-m-d H:i:s');
@@ -51,7 +66,7 @@ class DemandController extends Controller
                     </div>
                 ';
                 })
-                ->rawColumns(['action', 'demand_item_list'])
+                ->rawColumns(['action', 'demand_item_list', 'production_list'])
                 ->setRowAttr([
                     'data-searchable' => 'true'
                 ])

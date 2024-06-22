@@ -24,10 +24,10 @@ class AuthController extends Controller
         ]);
         if ($attempt){
             $request->session()->regenerate();
-            $from_datetime = Carbon::today()->addHours(6);
-            $to_datetime = $from_datetime->copy()->addHours(24);
-            $request->session()->put('from_datetime', $from_datetime);
-            $request->session()->put('to_datetime', $to_datetime);
+            // $from_datetime = Carbon::today()->addHours(6);
+            // $to_datetime = $from_datetime->copy()->addHours(24);
+            // $request->session()->put('from_datetime', $from_datetime);
+            // $request->session()->put('to_datetime', $to_datetime);
             ActivityLog::insert(["user_id" => Auth::id(), "description" => "Logged in."]);
             return redirect()->intended();
         }

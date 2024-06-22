@@ -28,6 +28,7 @@
                                 <th>{{ ucwords(str_replace('_', ' ', 'product_code')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'demand_code')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'qty')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'unit')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'manage')) }}</th>
                             </tr>
                         </thead>
@@ -61,6 +62,7 @@
                     { data: 'product_id', name: 'product.code' },
                     { data: 'demand_id', name: 'demand.code' },
                     { data: 'qty', name: 'qty' },
+                    { data: 'unit', name: 'unit' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 initComplete: function(settings, json) {

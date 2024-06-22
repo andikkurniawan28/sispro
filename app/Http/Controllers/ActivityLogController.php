@@ -19,7 +19,7 @@ class ActivityLogController extends Controller
         if ($request->ajax()) {
 
             $data = ActivityLog::with('user')
-                ->whereBetween('created_at', [$from_datetime, $to_datetime])
+                // ->whereBetween('created_at', [$from_datetime, $to_datetime])
                 ->latest()->get();
 
             return Datatables::of($data)

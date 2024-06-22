@@ -26,6 +26,7 @@
                                 <th>{{ ucwords(str_replace('_', ' ', 'code')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'due_date')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'product')) }}</th>
+                                <th>{{ ucwords(str_replace('_', ' ', 'production')) }}</th>
                                 <th>{{ ucwords(str_replace('_', ' ', 'manage')) }}</th>
                             </tr>
                         </thead>
@@ -56,7 +57,8 @@
                     { data: 'created_at', name: 'created_at' },
                     { data: 'code', name: 'code' },
                     { data: 'due_date', name: 'due_date' },
-                    { data: 'demand_item_list', name: 'formula_list', orderable: false, searchable: false },
+                    { data: 'demand_item_list', name: 'demand_item_list', orderable: false, searchable: false },
+                    { data: 'production_list', name: 'production_list', orderable: false, searchable: false },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 initComplete: function(settings, json) {

@@ -23,6 +23,9 @@ class ProductionController extends Controller
                 ->latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('unit', function ($row) {
+                    return $row->product ? $row->product->unit->symbol : 'N/A';
+                })
                 ->editColumn('product_id', function ($row) {
                     return $row->product_id ? $row->product->code : 'N/A';
                 })
@@ -99,8 +102,7 @@ class ProductionController extends Controller
         $saleStatusId = ProductStatus::where('name', 'Sale')->value('id');
         $products = Product::where('product_status_id', $saleStatusId)->get();
         $demands = Demand::all();
-        $code = Production::generateCode();
-        return view('production.edit', compact('setup', 'production', 'products', 'demands', 'code'));
+        return view('production.edit', compact('setup', 'production', 'products', 'demands'));
     }
 
     /**
