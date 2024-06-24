@@ -16,8 +16,10 @@ use App\Models\RawMaterial;
 use App\Models\ProductStatus;
 use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
+use App\Models\ProductWarehouse;
 use Illuminate\Support\Facades\DB;
 use App\Models\RawMaterialCategory;
+use App\Models\RawMaterialWarehouse;
 
 class DatabaseSeeder extends Seeder
 {
@@ -170,6 +172,18 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_production_quality')), 'route' => 'production_quality.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_production_quality')), 'route' => 'production_quality.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_production_quality')), 'route' => 'production_quality.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_raw_material_log')), 'route' => 'raw_material_log.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_raw_material_log')), 'route' => 'raw_material_log.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_raw_material_log')), 'route' => 'raw_material_log.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_raw_material_log')), 'route' => 'raw_material_log.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_raw_material_log')), 'route' => 'raw_material_log.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_raw_material_log')), 'route' => 'raw_material_log.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_product_log')), 'route' => 'product_log.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_product_log')), 'route' => 'product_log.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_product_log')), 'route' => 'product_log.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_product_log')), 'route' => 'product_log.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_product_log')), 'route' => 'product_log.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_product_log')), 'route' => 'product_log.destroy'],
         ];
         Feature::insert($features);
 
@@ -278,6 +292,30 @@ class DatabaseSeeder extends Seeder
             {
                 $alter_query = "ALTER TABLE production_qualities ADD COLUMN `{$column_name}` FLOAT NULL";
             }
+            DB::statement($alter_query);
+        }
+
+        $raw_material_warehouses = [
+            ["name" => ucwords(str_replace('_', ' ', 'freezer_1'))],
+            ["name" => ucwords(str_replace('_', ' ', 'freezer_2'))],
+        ];
+        RawMaterialWarehouse::insert($raw_material_warehouses);
+        $raw_material_warehouses = RawMaterialWarehouse::all();
+        foreach ($raw_material_warehouses as $raw_material_warehouse) {
+            $column_name = str_replace(' ', '_', $raw_material_warehouse->name);
+            $alter_query = "ALTER TABLE raw_materials ADD COLUMN `{$column_name}` FLOAT NULL";
+            DB::statement($alter_query);
+        }
+
+        $product_warehouses = [
+            ["name" => ucwords(str_replace('_', ' ', 'gudang_a'))],
+            ["name" => ucwords(str_replace('_', ' ', 'gudang_b'))],
+        ];
+        ProductWarehouse::insert($product_warehouses);
+        $product_warehouses = ProductWarehouse::all();
+        foreach ($product_warehouses as $product_warehouse) {
+            $column_name = str_replace(' ', '_', $product_warehouse->name);
+            $alter_query = "ALTER TABLE products ADD COLUMN `{$column_name}` FLOAT NULL";
             DB::statement($alter_query);
         }
     }

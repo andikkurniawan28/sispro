@@ -13,9 +13,11 @@ use App\Http\Controllers\QualityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProductionController;
+use App\Http\Controllers\ProductLogController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ProductStatusController;
+use App\Http\Controllers\RawMaterialLogController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductWarehouseController;
 use App\Http\Controllers\ProductionQualityController;
@@ -61,3 +63,5 @@ Route::resource('/quality', QualityController::class)->middleware(['auth', 'chec
 Route::resource('/demand', DemandController::class)->middleware(['auth', 'check.permission']);
 Route::resource('/production', ProductionController::class)->middleware(['auth', 'check.permission']);
 Route::resource('/production_quality', ProductionQualityController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/raw_material_log', RawMaterialLogController::class)->middleware(['auth', 'check.permission']);
+Route::resource('/product_log', ProductLogController::class)->middleware(['auth', 'check.permission']);

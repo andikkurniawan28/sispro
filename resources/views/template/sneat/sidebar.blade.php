@@ -199,7 +199,9 @@
 
         @if (in_array('demand.index', $permissions) ||
             in_array('production.index', $permissions) ||
-            in_array('production_quality.index', $permissions)
+            in_array('production_quality.index', $permissions) ||
+            in_array('raw_material_log.index', $permissions) ||
+            in_array('product_log.index', $permissions)
         )
             <li class="menu-item
                 @yield('demand-active')
@@ -229,6 +231,22 @@
                         <li class="menu-item @yield('production_quality-active')">
                             <a href="{{ route('production_quality.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'production_quality')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('raw_material_log.index', $permissions))
+                        <li class="menu-item @yield('raw_material_log-active')">
+                            <a href="{{ route('raw_material_log.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'raw_material_log')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('product_log.index', $permissions))
+                        <li class="menu-item @yield('product_log-active')">
+                            <a href="{{ route('product_log.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'product_log')) }}
                                 </div>
                             </a>
                         </li>
