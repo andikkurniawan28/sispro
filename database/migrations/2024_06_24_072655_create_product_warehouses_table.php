@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productions', function (Blueprint $table) {
+        Schema::create('product_warehouses', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('batch');
-            $table->foreignId('demand_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained();
-            $table->float('accepted');
-            $table->float('rejected');
-            $table->float('qty');
+            $table->string('name')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productions');
+        Schema::dropIfExists('product_warehouses');
     }
 };

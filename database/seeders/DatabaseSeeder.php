@@ -9,12 +9,14 @@ use App\Models\User;
 use App\Models\Setup;
 use App\Models\Feature;
 use App\Models\Product;
+use App\Models\Quality;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\RawMaterial;
 use App\Models\ProductStatus;
 use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\RawMaterialCategory;
 
 class DatabaseSeeder extends Seeder
@@ -111,6 +113,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_raw_material')), 'route' => 'raw_material.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_raw_material')), 'route' => 'raw_material.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_raw_material')), 'route' => 'raw_material.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_raw_material_warehouse')), 'route' => 'raw_material_warehouse.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_raw_material_warehouse')), 'route' => 'raw_material_warehouse.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_raw_material_warehouse')), 'route' => 'raw_material_warehouse.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_raw_material_warehouse')), 'route' => 'raw_material_warehouse.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_raw_material_warehouse')), 'route' => 'raw_material_warehouse.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_raw_material_warehouse')), 'route' => 'raw_material_warehouse.destroy'],
             ['name' => ucwords(str_replace('_', ' ', 'list_of_product_category')), 'route' => 'product_category.index'],
             ['name' => ucwords(str_replace('_', ' ', 'create_product_category')), 'route' => 'product_category.create'],
             ['name' => ucwords(str_replace('_', ' ', 'save_product_category')), 'route' => 'product_category.store'],
@@ -123,6 +131,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_product_status')), 'route' => 'product_status.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_product_status')), 'route' => 'product_status.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_product_status')), 'route' => 'product_status.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_product_warehouse')), 'route' => 'product_warehouse.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_product_warehouse')), 'route' => 'product_warehouse.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_product_warehouse')), 'route' => 'product_warehouse.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_product_warehouse')), 'route' => 'product_warehouse.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_product_warehouse')), 'route' => 'product_warehouse.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_product_warehouse')), 'route' => 'product_warehouse.destroy'],
             ['name' => ucwords(str_replace('_', ' ', 'list_of_product')), 'route' => 'product.index'],
             ['name' => ucwords(str_replace('_', ' ', 'create_product')), 'route' => 'product.create'],
             ['name' => ucwords(str_replace('_', ' ', 'save_product')), 'route' => 'product.store'],
@@ -132,6 +146,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'list_of_formula')), 'route' => 'formula.index'],
             ['name' => ucwords(str_replace('_', ' ', 'adjust_formula')), 'route' => 'formula.adjust'],
             ['name' => ucwords(str_replace('_', ' ', 'update_formula')), 'route' => 'formula.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_quality')), 'route' => 'quality.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_quality')), 'route' => 'quality.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_quality')), 'route' => 'quality.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_quality')), 'route' => 'quality.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_quality')), 'route' => 'quality.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_quality')), 'route' => 'quality.destroy'],
             ['name' => ucwords(str_replace('_', ' ', 'list_of_demand')), 'route' => 'demand.index'],
             ['name' => ucwords(str_replace('_', ' ', 'create_demand')), 'route' => 'demand.create'],
             ['name' => ucwords(str_replace('_', ' ', 'save_demand')), 'route' => 'demand.store'],
@@ -144,6 +164,12 @@ class DatabaseSeeder extends Seeder
             ['name' => ucwords(str_replace('_', ' ', 'edit_production')), 'route' => 'production.edit'],
             ['name' => ucwords(str_replace('_', ' ', 'update_production')), 'route' => 'production.update'],
             ['name' => ucwords(str_replace('_', ' ', 'delete_production')), 'route' => 'production.destroy'],
+            ['name' => ucwords(str_replace('_', ' ', 'list_of_production_quality')), 'route' => 'production_quality.index'],
+            ['name' => ucwords(str_replace('_', ' ', 'create_production_quality')), 'route' => 'production_quality.create'],
+            ['name' => ucwords(str_replace('_', ' ', 'save_production_quality')), 'route' => 'production_quality.store'],
+            ['name' => ucwords(str_replace('_', ' ', 'edit_production_quality')), 'route' => 'production_quality.edit'],
+            ['name' => ucwords(str_replace('_', ' ', 'update_production_quality')), 'route' => 'production_quality.update'],
+            ['name' => ucwords(str_replace('_', ' ', 'delete_production_quality')), 'route' => 'production_quality.destroy'],
         ];
         Feature::insert($features);
 
@@ -235,5 +261,24 @@ class DatabaseSeeder extends Seeder
             ],
         ];
         Product::insert($products);
+
+        $qualities = [
+            ["name" => ucwords(str_replace('_', ' ', 'premix')), "type" => "Qualitative"],
+        ];
+        Quality::insert($qualities);
+
+        $qualities = Quality::all();
+        foreach ($qualities as $quality) {
+            $column_name = str_replace(' ', '_', $quality->name);
+            if($quality->type == "Qualitative")
+            {
+                $alter_query = "ALTER TABLE production_qualities ADD COLUMN `{$column_name}` VARCHAR(255) NULL";
+            }
+            else
+            {
+                $alter_query = "ALTER TABLE production_qualities ADD COLUMN `{$column_name}` FLOAT NULL";
+            }
+            DB::statement($alter_query);
+        }
     }
 }

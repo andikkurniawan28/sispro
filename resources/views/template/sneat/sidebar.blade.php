@@ -96,10 +96,13 @@
                 in_array('unit.index', $permissions) ||
                 in_array('raw_material_category.index', $permissions) ||
                 in_array('raw_material.index', $permissions) ||
+                in_array('raw_material_warehouse.index', $permissions) ||
                 in_array('product_category.index', $permissions) ||
                 in_array('product_status.index', $permissions) ||
                 in_array('product.index', $permissions) ||
-                in_array('formula.index', $permissions)
+                in_array('product_warehouse.index', $permissions) ||
+                in_array('formula.index', $permissions) ||
+                in_array('quality.index', $permissions)
             )
             <li
                 class="menu-item
@@ -134,6 +137,14 @@
                             </a>
                         </li>
                     @endif
+                    @if (in_array('raw_material_warehouse.index', $permissions))
+                        <li class="menu-item @yield('raw_material_warehouse-active')">
+                            <a href="{{ route('raw_material_warehouse.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'raw_material_warehouse')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                     @if (in_array('product_category.index', $permissions))
                         <li class="menu-item @yield('product_category-active')">
                             <a href="{{ route('product_category.index') }}" class="menu-link">
@@ -158,10 +169,26 @@
                             </a>
                         </li>
                     @endif
+                    @if (in_array('product_warehouse.index', $permissions))
+                        <li class="menu-item @yield('product_warehouse-active')">
+                            <a href="{{ route('product_warehouse.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'product_warehouse')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                     @if (in_array('formula.index', $permissions))
                         <li class="menu-item @yield('formula-active')">
                             <a href="{{ route('formula.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'formula')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('quality.index', $permissions))
+                        <li class="menu-item @yield('quality-active')">
+                            <a href="{{ route('quality.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'quality')) }}
                                 </div>
                             </a>
                         </li>
@@ -171,7 +198,8 @@
         @endif
 
         @if (in_array('demand.index', $permissions) ||
-            in_array('production.index', $permissions)
+            in_array('production.index', $permissions) ||
+            in_array('production_quality.index', $permissions)
         )
             <li class="menu-item
                 @yield('demand-active')
@@ -193,6 +221,14 @@
                         <li class="menu-item @yield('production-active')">
                             <a href="{{ route('production.index') }}" class="menu-link">
                                 <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'production')) }}
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if (in_array('production_quality.index', $permissions))
+                        <li class="menu-item @yield('production_quality-active')">
+                            <a href="{{ route('production_quality.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">{{ ucwords(str_replace('_', ' ', 'production_quality')) }}
                                 </div>
                             </a>
                         </li>

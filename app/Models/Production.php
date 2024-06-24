@@ -23,6 +23,11 @@ class Production extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function quality()
+    {
+        return $this->hasOne(ProductionQuality::class);
+    }
+
     public static function generateCode()
     {
         $date = now()->format('Y-m-d');
